@@ -10,7 +10,7 @@ import {RaceComponent} from './dashboard/race/race.component';
 import {AdminComponent} from './dashboard/admin/admin.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
   { path: 'dashboard', component: DashboardComponent, children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -28,4 +28,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
