@@ -15,11 +15,15 @@ import {GroupComponent} from './dashboard/group/group.component';
 import {HomeComponent} from './dashboard/home/home.component';
 import {RaceComponent} from './dashboard/race/race.component';
 import {RatingComponent} from './dashboard/rating/rating.component';
+import {RegisterComponent} from './register/register.component';
+import {ErrorComponent} from './error/error.component';
 
 @NgModule({
   declarations: [
       AppComponent,
       LoginComponent,
+      RegisterComponent,
+      ErrorComponent,
       DashboardComponent,
       AdminComponent,
       GroupComponent,
