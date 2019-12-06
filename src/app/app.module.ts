@@ -20,6 +20,11 @@ import {DashboardHomeComponent} from './dashboard/dashboard-home/dashboard-home.
 import {FamilyComponent} from './family/family.component';
 import {FamilyHomeComponent} from './family/family-home/family-home.component';
 import {OverviewComponent} from './dashboard/admin/overview/overview.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {ErrorInterceptor} from './_helpers/error.interceptor';
+import {HttpService} from './_services/http.service';
+import {FormsModule} from '@angular/forms';
+import {JwtInterceptor} from './_helpers/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -38,11 +43,15 @@ import {OverviewComponent} from './dashboard/admin/overview/overview.component';
       OverviewComponent
   ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, FormsModule],
+  exports: [],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    HttpService,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+
   ],
   bootstrap: [AppComponent]
 })

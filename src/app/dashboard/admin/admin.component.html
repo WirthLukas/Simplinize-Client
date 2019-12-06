@@ -1,5 +1,31 @@
-<p>
-  admin works!
-</p>
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button menu="menu"></ion-menu-button>
+        </ion-buttons>
+
+        <ion-title>
+            Admin
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-menu side="start" menuId="menu" content-id="content" id="menu">
+    <ion-header>
+        <ion-toolbar color="primary">
+            <ion-title>Menu</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item>Overview</ion-item>
+            <ion-item>Settings</ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+<ion-content id="content">
+
+</ion-content>
 
 <ion-router-outlet></ion-router-outlet>
+

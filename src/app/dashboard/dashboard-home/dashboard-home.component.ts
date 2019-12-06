@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpService} from '../../_services/http.service';
+import {DataService} from '../../_services/data.service';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -7,8 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpService: HttpService, private dataService: DataService) { }
 
   ngOnInit() {}
 
+    test() {
+        this.httpService.test().subscribe(res => {
+           console.log(res);
+        });
+    }
 }
