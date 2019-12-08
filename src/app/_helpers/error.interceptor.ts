@@ -3,79 +3,44 @@ import {HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpEventType, HttpEr
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {AuthenticationService} from '../_services/authentication.service';
+import {Router} from "@angular/router";
+import {applySourceSpanToExpressionIfNeeded} from "@angular/compiler/src/output/output_ast";
 
 @Injectable()
 export class ErrorInterceptor implements ErrorInterceptor {
 
-    constructor(private authenticationService: AuthenticationService) { }
+    constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(request).pipe(catchError(err => {
+
+
+        return next.handle(request).pipe(catchError((err: any) => {
+
+            let obj = err.error;
 
             switch (err.status) {
                 case 401: //Unauthorized
                     this.authenticationService.logout();
-                    console.log(err.error);
+                    this.navigateTo(err.status, obj.resource, obj.message);
                     break;
                 case 403: //Forbidden
+                    this.authenticationService.logout();
+                    this.navigateTo(err.status, obj.resource, obj.message);
                     break;
                 case 500: //Internal Server Error
+                    this.navigateTo(err.status, obj.resource, obj.message);
                     break;
                 default:
-                    console.log("Geleck do hats wos!")
+                    this.navigateTo(err.status, obj.resource, obj.message);
                     break;
             }
 
-
-
-
-            return throwError(err);
-        }))
-    }
-    /*
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-        return next.handle(request).pipe(map((event: HttpEvent<any>) => {
-
-            if (event instanceof HttpResponse) {
-                switch (event.status) {
-
-                    case 200: //OK
-                            console.log(event.body);
-                        //Hier dann im DataService type setzten.
-                        //Body versuchen zu JSON PARSEN und im DataService JSON Type parse.
-
-                        break;
-                    case 302: //Found
-
-                        break;
-
-                    case 401: //Unauthorized
-                        console.log(event.body);
-                        break;
-                }
-            } else if (event instanceof HttpErrorResponse) {
-                switch (event.status) {
-
-                    case 401: //Unauthorized
-                        console.log(event.message);
-                        break;
-                    case 403: //Forbidden
-                        break;
-
-                    case 500: //Internal Server Error
-                        break;
-
-                    default:
-                        console.log("Geleck do hats wos!")
-                        break;
-                }
-            }
-                return event;
+                return new Observable<HttpEvent<any>>(); //oder  return throwError(err); zum error anzeigen
             }));
     }
 
-     */
-
-
+    navigateTo(status: number, resource: string, message: string) {
+        this.router.navigate(['/error'], {queryParams:
+                {status: status, resource: resource, message: message }});
+    }
 }

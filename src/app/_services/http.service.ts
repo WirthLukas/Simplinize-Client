@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {LoginDTO} from "../_models/dto/dtoEntities";
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,11 @@ export class HttpService {
 
 
   test() {
-    return this.http.get(environment.api + '/app/test',{responseType: "text"});
+    return this.http.get(environment.api + '/app/getChildren',);
   }
 
-  login() {
-    return this.http.post(environment.api, null);
+  login(loginDto: LoginDTO) {
+    return this.http.post(environment.api, loginDto);
   }
 
   register() {

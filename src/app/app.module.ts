@@ -52,6 +52,7 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
 
+
   ],
   bootstrap: [AppComponent]
 })
