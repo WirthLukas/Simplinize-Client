@@ -9,5 +9,12 @@ export class WebsocketService {
 
   constructor() { }
 
+  connectToServer(url: string) {
+    this.websocket = new WebSocket(url);
+  }
+
+  closeConnection(code: number, reason: string) {
+    this.websocket.close(code, reason);
+  }
 
 }
