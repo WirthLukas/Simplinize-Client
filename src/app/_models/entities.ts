@@ -1,5 +1,4 @@
 export class CurrentUser {
-
     constructor(
         public id: number,
         public credentials: string,

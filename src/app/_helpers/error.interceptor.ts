@@ -34,7 +34,6 @@ export class ErrorInterceptor implements ErrorInterceptor {
                     this.navigateTo(err.status, obj.resource, obj.message);
                     break;
             }
-
                 return new Observable<HttpEvent<any>>(); //oder  return throwError(err); zum error anzeigen
             }));
     }
