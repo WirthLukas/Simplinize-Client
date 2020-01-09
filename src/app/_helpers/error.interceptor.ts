@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {AuthenticationService} from '../_services/authentication.service';
 import {Router} from "@angular/router";
-import {applySourceSpanToExpressionIfNeeded} from "@angular/compiler/src/output/output_ast";
 
 @Injectable()
 export class ErrorInterceptor implements ErrorInterceptor {

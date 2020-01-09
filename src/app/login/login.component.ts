@@ -8,9 +8,9 @@ import {NgForm} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {}
+    ngOnInit() {}
 
     login(form: NgForm) {
         console.log(form.value.password);
