@@ -7,3 +7,13 @@ export class CurrentUser {
         public token: string
     ) {}
 }
+
+export class CustomResponse {
+    constructor(
+        public typ?: string,
+        public resource?: string,
+        public message?: string,
+        public data?: object[]
+    ) {}
+}
+

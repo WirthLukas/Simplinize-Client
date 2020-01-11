@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {LoginDTO} from "../_models/dto/dtoEntities";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,21 @@ export class HttpService {
   getSkiTeachers() {
 
     return this.http.get(environment.api + '/app/getSkiTeachers')
+  }
+
+  addChildrenToCourse(studentId: number, courseId: number) {
+
+    const params = new HttpParams();
+    params.append("studentId", studentId.toLocaleString());
+    params.append("courseId", courseId.toLocaleString());
+
+    return this.http.post(environment.api + '/app/addChildrenToCourse',null,{params})
+
+  }
+
+  registerChildren() {
+
+    return this.http.post(environment.api + '/app/registerChildren', null);
   }
 
 

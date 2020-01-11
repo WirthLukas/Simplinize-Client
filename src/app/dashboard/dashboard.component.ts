@@ -8,10 +8,9 @@ import {DataService} from '../_services/data.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(public dataService: DataService) { }
+  constructor(public dataService: DataService) {}
 
   ngOnInit() {
-    this.dataService.showTabBar = true;
   }
 
 

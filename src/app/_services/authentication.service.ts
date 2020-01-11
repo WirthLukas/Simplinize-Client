@@ -9,19 +9,15 @@ import {CurrentUser} from '../_models/entities';
 })
 export class AuthenticationService {
 
-  constructor(private httpService: HttpService) { }
+  constructor() { }
 
-  login(credentials: string, password: string) {
-
-    const loginDto = new LoginDTO(credentials, password, Role.SKITEACHER);
-
-    this.httpService.login(loginDto).subscribe(data => {
-
-    });
-  }
 
   logout() {
     localStorage.removeItem('currentUser');
+  }
+
+  setUser(user: CurrentUser) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
   getUser(): CurrentUser {

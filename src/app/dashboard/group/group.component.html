@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button>
+      <ion-button (click)="showModal()">
         <ion-icon slot="icon-only" name="add-circle"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -13,13 +13,18 @@
 
 
 <ion-content>
-  <ion-card>
+  <ion-card (click)="test()">
     <ion-card-content>
-      <ion-list lines="none">
+      <ion-list lines="">
         <ion-item>
-          <ion-label>SEAS</ion-label>
+          <ion-label>Max Mustermann</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Maxim Musterfrau</ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
 </ion-content>
+
+<ion-router-outlet></ion-router-outlet>
