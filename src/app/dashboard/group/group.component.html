@@ -13,7 +13,7 @@
 
 
 <ion-content>
-  <ion-card (click)="test()">
+  <ion-card>
     <ion-card-content>
       <ion-list lines="">
         <ion-item>
@@ -25,6 +25,7 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-</ion-content>
 
-<ion-router-outlet></ion-router-outlet>
+  <ion-button (click)="test()">Navigate</ion-button>
+  <ion-button (click)="pop()"></ion-button>
+</ion-content>

@@ -21,9 +21,11 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, children: [ // SkiTeacher
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'home', component: DashboardHomeComponent},
-      { path: 'group', component: GroupComponent},
-          {path: 'studentSelection', component: StudentSelectionComponent},
-          {path: 'studentDetail', component: StudentDetailComponent},
+      { path: 'group', children: [
+              {path: '', component: GroupComponent},
+              {path: 'studentDetail', component: StudentDetailComponent},
+              {path: 'studentSelection', component: StudentSelectionComponent}
+          ]},
       { path: 'rating', component: RatingComponent},
       { path: 'race', component: RaceComponent},
       { path: 'admin', component: AdminComponent, children: [

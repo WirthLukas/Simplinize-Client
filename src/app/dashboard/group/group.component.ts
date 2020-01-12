@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../../_services/data.service';
-import {ModalController} from '@ionic/angular';
+import {ModalController, ActionSheetController} from '@ionic/angular';
 import {StudentSelectionComponent} from './student-selection/student-selection.component';
 import {Router} from '@angular/router';
 
@@ -13,13 +13,14 @@ export class GroupComponent implements OnInit {
 
   constructor(private dataService: DataService,
               public modalController: ModalController,
+              public actionSheetController: ActionSheetController,
               public router: Router)
   {}
 
   ngOnInit() {}
 
   test() {
-    this.router.navigate(['/studentDetail']);
+    this.router.navigate(['/dashboard/group/studentDetail']);
   }
 
   showModal() {
