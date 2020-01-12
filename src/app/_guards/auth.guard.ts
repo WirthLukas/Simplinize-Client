@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import {AuthenticationService} from "../_services/authentication.service";
-import {Role} from "../_models/role";
+import {AuthenticationService} from '../_services/authentication.service';
+import {Role} from '../_models/role';
 
 @Injectable({
   providedIn: 'root'
@@ -22,29 +22,25 @@ export class AuthGuard implements CanActivate {
 
     const currentUser = this.authenticationService.getUser();
 
-    let decodeToken = this.jwtHelper.decodeToken(currentUser.token);
-    console.log(decodeToken.role);
+    if (currentUser) {
+      if (!this.isAuthenticated() || (next.data.roles.indexOf(this.jwtHelper.decodeToken(currentUser.token).role) < 0)) { // currentUser.roles
 
-
-    if(currentUser) {
-      if (!this.isAuthenticated() || (next.data.roles.indexOf(currentUser) < 0)) { //currentUser.roles
-        this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
-
-        let decodeToken = this.jwtHelper.decodeToken(currentUser.token);
-        console.log(decodeToken.role);
-
-        return false;
+          // role not authorised so redirect to home page
+          //this.router.navigate(['/']);
+          alert("Role not allowed");
+          return false;
       }
+        return true;
     }
-
-    return true;
+      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+      return false;
   }
 
    isAuthenticated(): boolean {
 
     const currentUser = this.authenticationService.getUser();
 
-    if(!currentUser) {
+    if (!currentUser) {
       return false;
     }
 

@@ -11,11 +11,6 @@ export class DashboardHomeComponent implements OnInit {
 
   constructor(private httpService: HttpService, private dataService: DataService) { }
 
-  ngOnInit() {}
-
-    test() {
-        this.httpService.test().subscribe(res => {
-           console.log(res);
-        });
-    }
+  ngOnInit() {
+  }
 }

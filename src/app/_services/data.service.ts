@@ -7,6 +7,8 @@ export class DataService {
 
   constructor() { }
 
+  showTabBar: boolean;
+
   // ResponseType hineinschreiben, dann bei subscribe richtig parsen
 
   checkResponse(res): any {
