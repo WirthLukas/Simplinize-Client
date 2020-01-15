@@ -5,3 +5,11 @@ ion-item{
 ion-button{
   --background: #062f77;
 }
+
+ion-icon {
+  margin-right: 4vw;
+}
+
+.background-image {
+  --background: url("../../assets/background.jpg") no-repeat center/cover fixed;
+}

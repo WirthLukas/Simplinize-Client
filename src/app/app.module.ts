@@ -20,7 +20,7 @@ import {OverviewComponent} from './dashboard/admin/overview/overview.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {HttpService} from './_services/http.service';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {StudentSelectionComponent} from './dashboard/group/student-selection/student-selection.component';
 import {StudentDetailComponent} from './dashboard/group/student-detail/student-detail.component';
@@ -41,7 +41,7 @@ import {StudentDetailComponent} from './dashboard/group/student-detail/student-d
       OverviewComponent
   ],
   entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, FormsModule],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, FormsModule, ReactiveFormsModule],
   exports: [],
   providers: [
     StatusBar,

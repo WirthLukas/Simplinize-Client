@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {AuthenticationService} from '../_services/authentication.service';
 import {LoginDTO} from '../_models/dto/dtoEntities';
 import {Role} from '../_models/role';
@@ -9,37 +9,50 @@ import {ToastController} from '@ionic/angular';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService,
-              private httpService: HttpService,
-              private toastController: ToastController,
-              private router: Router) {
+    form: FormGroup;
+    response: CustomResponse = new CustomResponse();
 
-      if (this.authenticationService.getUser()) {
-          this.router.navigate(['/dashboard']);
-      }
-  }
+    constructor(private authenticationService: AuthenticationService,
+                private httpService: HttpService,
+                private toastController: ToastController,
+                private router: Router,
+                fb: FormBuilder) {
 
-  ngOnInit() {}
+        if (this.authenticationService.getUser()) {
+            console.log(this.authenticationService.getUser());
+            this.router.navigate(['/dashboard']);
+        }
 
-  response: CustomResponse = new CustomResponse();
+        this.form = fb.group({
+            username:
+                ['', [Validators.required]],
 
-    login(form: NgForm) {
+            password:
+                ['', [Validators.required]]
+        });
+    }
 
-        const loginDto = new LoginDTO(form.value.username, form.value.password, Role.SKITEACHER); // Kommt dann noch die Überprüfung für Username and Passsword
+    ngOnInit() {}
+
+    onSubmit() {
+        const val = this.form.value;
+
+        const loginDto = new LoginDTO(val.username, val.password, Role.SKITEACHER);
 
         this.httpService.login(loginDto).subscribe(data => {
             Object.assign(this.response, data);
             this.checkResponse();
         });
+
     }
 
-     checkResponse() {
+    checkResponse() {
         switch (this.response.typ) {
             case 'hint':
                 this.presentToast(this.response.message);

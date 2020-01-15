@@ -27,11 +27,38 @@ export class GroupComponent implements OnInit {
       this.presentModal();
   }
 
+  pop() {
+    this.presentActionSheet();
+  }
+
   async presentModal() {
     const modal = await this.modalController.create({
       component: StudentSelectionComponent
     });
     return await modal.present();
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Max Musterman',
+      buttons: [{
+        text: 'Delete',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          console.log('Delete clicked');
+        }
+      },
+        {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 
 }

@@ -15,7 +15,7 @@ import {StudentDetailComponent} from './dashboard/group/student-detail/student-d
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'error', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent}, // SkiTeacher
   { path: 'error', component: ErrorComponent},
   { path: 'dashboard', component: DashboardComponent, children: [ // SkiTeacher
