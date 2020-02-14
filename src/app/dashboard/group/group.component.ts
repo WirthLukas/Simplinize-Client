@@ -1,64 +1,97 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from '../../_services/data.service';
 import {ModalController, ActionSheetController} from '@ionic/angular';
 import {StudentSelectionComponent} from './student-selection/student-selection.component';
 import {Router} from '@angular/router';
+import {CurrentUser, CustomResponse, Student} from '../../_models/entities';
+import {HttpService} from '../../_services/http.service';
+import {ToastService} from '../../_services/toast.service';
 
 @Component({
-  selector: 'app-group',
-  templateUrl: './group.component.html',
-  styleUrls: ['./group.component.scss'],
+    selector: 'app-group',
+    templateUrl: './group.component.html',
+    styleUrls: ['./group.component.scss'],
 })
 export class GroupComponent implements OnInit {
 
-  constructor(private dataService: DataService,
-              public modalController: ModalController,
-              public actionSheetController: ActionSheetController,
-              public router: Router)
-  {}
+    constructor(private dataService: DataService,
+                private toastService: ToastService,
+                private modalController: ModalController,
+                private actionSheetController: ActionSheetController,
+                private router: Router,
+                private http: HttpService) {
+    }
 
-  ngOnInit() {}
+    ngOnInit() {
+        this.http.getGroupParticipations(this.dataService.group.id).subscribe(res => this.checkResponse(res));
+    }
 
-  test() {
-    this.router.navigate(['/dashboard/group/studentDetail']);
-  }
+    checkResponse(data: any) {
 
-  showModal() {
-      this.presentModal();
-  }
+        const response: CustomResponse = new CustomResponse();
 
-  pop() {
-    this.presentActionSheet();
-  }
+        Object.assign(response, data);
 
-  async presentModal() {
-    const modal = await this.modalController.create({
-      component: StudentSelectionComponent
-    });
-    return await modal.present();
-  }
+        switch (response.typ) {
+            case 'hint':
+                this.toastService.presentHintToast(response.message);
+                break;
+            case 'data':
+                console.log(response.data);
+                this.dataService.groupParticipations = JSON.parse(JSON.stringify(response.data));
 
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Max Musterman',
-      buttons: [{
-        text: 'Delete',
-        role: 'destructive',
-        icon: 'trash',
-        handler: () => {
-          console.log('Delete clicked');
+                break;
         }
-      },
-        {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }]
-    });
-    await actionSheet.present();
-  }
+    }
+
+    showModal() {
+        this.presentModal();
+    }
+
+    openPopUp(selected: Student) {
+        this.presentActionSheet(selected);
+    }
+
+    private async presentModal() {
+        const modal = await this.modalController.create({
+            component: StudentSelectionComponent
+        });
+        return await modal.present();
+    }
+
+    private async presentActionSheet(selected: Student) {
+        const actionSheet = await this.actionSheetController.create({
+            header: selected.firstName + " " + selected.lastName,
+            buttons: [{
+                text: 'View details',
+                //icon: 'contact',
+                handler: () => {
+                    this.router.navigate(['/dashboard/group/studentDetail']);
+                }
+            }, {
+                text: 'Abwesend',
+                //icon: 'checkbox-outline',
+                handler: () => {
+                    console.log('Delete clicked');
+                }
+            }, {
+                text: 'Remove from group',
+                role: 'destructive',
+                //icon: 'trash',
+                handler: () => {
+                    console.log('Delete clicked');
+                }
+            },
+                {
+                    text: 'Cancel',
+                    //icon: 'close',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                }]
+        });
+        await actionSheet.present();
+    }
 
 }

@@ -27,15 +27,18 @@ export class HttpService {
     return this.http.post(environment.api + '/app/assignCourse', null);
   }
 
-  createGroup() {
-    return this.http.post(environment.api + '/app/createGroup', null);
+  createGroup(courseId: number) {
+    const params = new HttpParams();
+    params.set("courseId", courseId.toLocaleString());
+
+    return this.http.post(environment.api + '/app/createGroup', null, {params});
   }
 
   addTeacherToGroup(skiTeacherId: number, groupId: number) {
 
     const params = new HttpParams();
-    params.append("skiTeacherId", skiTeacherId.toLocaleString());
-    params.append("groupId", groupId.toLocaleString())
+    params.set("skiTeacherId", skiTeacherId.toLocaleString());
+    params.set("groupId", groupId.toLocaleString())
 
     return this.http.post(environment.api + '/app/addTeacherToGroup', null, {params});
   }
@@ -43,7 +46,7 @@ export class HttpService {
   getAllGroups(courseId: number) {
 
     const params = new HttpParams();
-    params.append("courseId", courseId.toLocaleString());
+    params.set("courseId", courseId.toLocaleString());
 
     return this.http.get(environment.api + '/app/getAllGroups', {params});
   }
@@ -51,7 +54,7 @@ export class HttpService {
   getAllMembers(courseId: number) {
 
     const params = new HttpParams();
-    params.append("courseId", courseId.toLocaleString());
+    params.set("courseId", courseId.toLocaleString());
 
     return this.http.get(environment.api + '/app/getAllMembers', {params})
   }
@@ -64,8 +67,8 @@ export class HttpService {
   addChildrenToCourse(studentId: number, courseId: number) {
 
     const params = new HttpParams();
-    params.append("studentId", studentId.toLocaleString());
-    params.append("courseId", courseId.toLocaleString());
+    params.set("studentId", studentId.toLocaleString());
+    params.set("courseId", courseId.toLocaleString());
 
     return this.http.post(environment.api + '/app/addChildrenToCourse',null,{params})
 
@@ -74,6 +77,36 @@ export class HttpService {
   registerChildren() {
 
     return this.http.post(environment.api + '/app/registerChildren', null);
+  }
+
+  getGroupParticipations(groupId: number) {
+
+    const params = new HttpParams();
+    params.set("groupId", groupId.toLocaleString());
+    return this.http.get(environment.api + '/app/getGroupParticipations', {params});
+  }
+
+  getCourseParticipants(proficiency: string, courseId: number) {
+
+    const params = new HttpParams();
+    params.set("proficiency", proficiency);
+    params.set("courseId", courseId.toLocaleString())
+    return this.http.get(environment.api + '/app/getCourseParticipants', {params})
+  }
+
+  getGroup(courseId: number) {
+    const params = new HttpParams();
+    params.set("courseId", courseId.toLocaleString());
+    return this.http.get(environment.api + '/app/getGroup', {params});
+  }
+
+  getCourse(courseId) {
+
+    return this.http.get(environment.api + '/get/getCourse/' + courseId.toLocaleString());
+  }
+
+  getCurrentCourse() {
+    return this.http.get(environment.api + '/app/getCurrentCourse');
   }
 
 

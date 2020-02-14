@@ -12,13 +12,15 @@ import {OverviewComponent} from './dashboard/admin/overview/overview.component';
 import {DashboardHomeComponent} from './dashboard/dashboard-home/dashboard-home.component';
 import {StudentSelectionComponent} from './dashboard/group/student-selection/student-selection.component';
 import {StudentDetailComponent} from './dashboard/group/student-detail/student-detail.component';
+import {AuthGuard} from './_guards/auth.guard';
+import {Enums} from './_models/enums';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent}, // SkiTeacher
+  { path: 'login', component: LoginComponent},
   { path: 'error', component: ErrorComponent},
-  { path: 'dashboard', component: DashboardComponent, children: [ // SkiTeacher
+  { path: 'dashboard', component: DashboardComponent, children: [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'home', component: DashboardHomeComponent},
       { path: 'group', children: [
@@ -28,8 +30,12 @@ const routes: Routes = [
           ]},
       { path: 'rating', component: RatingComponent},
       { path: 'race', component: RaceComponent},
-      { path: 'admin', component: AdminComponent, children: [
+      { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: {
+          roles: [Enums.ADMIN, Enums.INSTRUCTOR, Enums.RACE]
+          }, children: [
+              { path: '', redirectTo: 'overview', pathMatch: 'full'},
               { path: 'overview', component: OverviewComponent},
+              // { path: 'settings', component: AdminSettingsComponent},
           ]}
       ]},
 ];

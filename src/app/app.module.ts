@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {RouteReuseStrategy} from '@angular/router';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {StatusBar} from '@ionic-native/status-bar/ngx';
+import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AdminComponent} from './dashboard/admin/admin.component';
@@ -24,34 +25,39 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {StudentSelectionComponent} from './dashboard/group/student-selection/student-selection.component';
 import {StudentDetailComponent} from './dashboard/group/student-detail/student-detail.component';
+import {RatingDetailComponent} from './dashboard/rating/rating-detail/rating-detail.component';
 
 @NgModule({
-  declarations: [
-      AppComponent,
-      LoginComponent,
-      ErrorComponent,
-      DashboardComponent,
-      AdminComponent,
-      GroupComponent,
-      StudentSelectionComponent,
-      StudentDetailComponent,
-      RaceComponent,
-      RatingComponent,
-      DashboardHomeComponent,
-      OverviewComponent
-  ],
-  entryComponents: [],
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        ErrorComponent,
+        DashboardComponent,
+        AdminComponent,
+        GroupComponent,
+        StudentSelectionComponent,
+        StudentDetailComponent,
+        RaceComponent,
+        RatingComponent,
+        RatingDetailComponent,
+        DashboardHomeComponent,
+        OverviewComponent
+    ],
+    entryComponents: [StudentSelectionComponent, RatingDetailComponent],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, FormsModule, ReactiveFormsModule],
-  exports: [],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    HttpService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    exports: [],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        InAppBrowser,
+        HttpService,
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
 
 
-  ],
-  bootstrap: [AppComponent]
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

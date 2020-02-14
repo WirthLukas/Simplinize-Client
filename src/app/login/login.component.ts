@@ -2,11 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {AuthenticationService} from '../_services/authentication.service';
 import {LoginDTO} from '../_models/dto/dtoEntities';
-import {Role} from '../_models/role';
+import {Enums} from '../_models/enums';
 import {HttpService} from '../_services/http.service';
 import {CurrentUser, CustomResponse} from '../_models/entities';
 import {ToastController} from '@ionic/angular';
 import {Router} from '@angular/router';
+import {ToastService} from '../_services/toast.service';
 
 @Component({
     selector: 'app-login',
@@ -16,22 +17,21 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
     form: FormGroup;
-    response: CustomResponse = new CustomResponse();
+    REGEX_USERNAME = new RegExp(/^[a-z]\.([a-z]+)+$/);
 
     constructor(private authenticationService: AuthenticationService,
                 private httpService: HttpService,
-                private toastController: ToastController,
                 private router: Router,
+                private toastService: ToastService,
                 fb: FormBuilder) {
 
         if (this.authenticationService.getUser()) {
-            console.log(this.authenticationService.getUser());
             this.router.navigate(['/dashboard']);
         }
 
         this.form = fb.group({
             username:
-                ['', [Validators.required]],
+                ['', [Validators.required, Validators.pattern(this.REGEX_USERNAME)]],
 
             password:
                 ['', [Validators.required]]
@@ -43,37 +43,32 @@ export class LoginComponent implements OnInit {
     onSubmit() {
         const val = this.form.value;
 
-        const loginDto = new LoginDTO(val.username, val.password, Role.SKITEACHER);
+        const loginDto = new LoginDTO(val.username, val.password, Enums.SKITEACHER);
 
         this.httpService.login(loginDto).subscribe(data => {
-            Object.assign(this.response, data);
-            this.checkResponse();
+            this.checkResponse(data);
         });
 
     }
 
-    checkResponse() {
-        switch (this.response.typ) {
+    checkResponse(data: any) {
+
+        const response: CustomResponse = new CustomResponse();
+
+        Object.assign(response, data);
+
+        switch (response.typ) {
             case 'hint':
-                this.presentToast(this.response.message);
-                // Refresh Form
+                this.toastService.presentHintToast(response.message);
+                this.form.reset();
                 break;
             case 'data':
-                const currentUser: CurrentUser = JSON.parse(JSON.stringify(this.response.data[0]));
+                const currentUser: CurrentUser = JSON.parse(JSON.stringify(response.data[0]));
                 this.authenticationService.setUser(currentUser);
                 this.router.navigate(['dashboard/home']);
                 break;
         }
     }
 
-    private async presentToast(message: string) {
-        const toast = await this.toastController.create({
-            message: message,
-            duration: 4000,
-            position: 'bottom',
-            showCloseButton: true,
-            keyboardClose: true
-        });
-        await toast.present();
-    }
+    // Button mit NeedAcccount --> Pop UP mit Bitte bei SkiInstuctor oder Admin melden!
 }

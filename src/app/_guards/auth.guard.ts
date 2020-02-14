@@ -1,50 +1,64 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
-import { Observable } from 'rxjs';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import {Observable} from 'rxjs';
+import {JwtHelperService} from '@auth0/angular-jwt';
 import {AuthenticationService} from '../_services/authentication.service';
-import {Role} from '../_models/role';
+import {Enums} from '../_models/enums';
+import {forEach} from '@angular-devkit/schematics';
+import {ToastService} from '../_services/toast.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  jwtHelper: JwtHelperService = new JwtHelperService();
+    jwtHelper: JwtHelperService = new JwtHelperService();
 
-  constructor(
-      private router: Router,
-      private authenticationService: AuthenticationService
-  ) {}
-
-
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-
-    const currentUser = this.authenticationService.getUser();
-
-    if (currentUser) {
-      if (!this.isAuthenticated() || (next.data.roles.indexOf(this.jwtHelper.decodeToken(currentUser.token).role) < 0)) { // currentUser.roles
-
-          // role not authorised so redirect to home page
-          //this.router.navigate(['/']);
-          alert("Role not allowed");
-          return false;
-      }
-        return true;
-    }
-      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-      return false;
-  }
-
-   isAuthenticated(): boolean {
-
-    const currentUser = this.authenticationService.getUser();
-
-    if (!currentUser) {
-      return false;
+    constructor(
+        private router: Router,
+        private authenticationService: AuthenticationService,
+        private toastService: ToastService
+    ) {
     }
 
-    return !this.jwtHelper.isTokenExpired(currentUser.token);
-  }
+    private previousUrl: string;
+    private currentUrl: string;
+
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+
+        const currentUser = this.authenticationService.getUser();
+
+        if (currentUser) {
+
+            const found = next.data.roles.some(r => this.authenticationService.getUserRoles().indexOf(r) >= 0);
+
+            if (!found) {
+                this.toastService.presentAuthToast('You are not allowed!');
+                return false;
+            }
+
+            if (!this.isAuthenticated()) {
+                this.toastService.presentAuthToast("Session expired!")
+                this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
+                return false;
+            }
+            return true;
+        } else {
+            this.toastService.presentAuthToast("Login first!");
+            this.router.navigate(['/login']);
+            return false;
+        }
+    }
+
+    isAuthenticated(): boolean {
+
+        const currentUser = this.authenticationService.getUser();
+
+        if (!currentUser) {
+            return false;
+        }
+
+        return !this.jwtHelper.isTokenExpired(currentUser.token);
+    }
 
 }

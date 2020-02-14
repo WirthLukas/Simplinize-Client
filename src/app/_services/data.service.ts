@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {CurrentUser, CustomResponse, Group, GroupParticipation, Student, Course, CourseParticipation} from '../_models/entities';
 
 @Injectable({
   providedIn: 'root'
@@ -7,15 +8,8 @@ export class DataService {
 
   constructor() { }
 
-  showTabBar: boolean;
-
-  // ResponseType hineinschreiben, dann bei subscribe richtig parsen
-
-  checkResponse(res): any {
-
-
-
-    return null;
-  }
-
+  groupParticipations: GroupParticipation [] = [];
+  group: Group = new Group();
+  courseParticipants: CourseParticipation [] = [];
+  course: Course = new Course();
 }
