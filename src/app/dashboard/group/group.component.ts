@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DataService} from '../../_services/data.service';
 import {ModalController, ActionSheetController} from '@ionic/angular';
 import {StudentSelectionComponent} from './student-selection/student-selection.component';
-import {Router} from '@angular/router';
+import {Router, NavigationExtras} from '@angular/router';
 import {CurrentUser, CustomResponse, Student} from '../../_models/entities';
 import {HttpService} from '../../_services/http.service';
 import {ToastService} from '../../_services/toast.service';
@@ -34,12 +34,12 @@ export class GroupComponent implements OnInit {
 
         switch (response.typ) {
             case 'hint':
-                this.toastService.presentHintToast(response.message);
+                console.log(response.message)
+                //this.toastService.presentHintToast(response.message);
                 break;
             case 'data':
                 console.log(response.data);
                 this.dataService.groupParticipations = JSON.parse(JSON.stringify(response.data));
-
                 break;
         }
     }
@@ -66,13 +66,18 @@ export class GroupComponent implements OnInit {
                 text: 'View details',
                 //icon: 'contact',
                 handler: () => {
-                    this.router.navigate(['/dashboard/group/studentDetail']);
+                    let navigationExtras: NavigationExtras = {
+                        state: {
+                            student: selected
+                        }
+                    };
+                    this.router.navigate(['/dashboard/group/studentDetail'], navigationExtras);
                 }
             }, {
                 text: 'Abwesend',
                 //icon: 'checkbox-outline',
                 handler: () => {
-                    console.log('Delete clicked');
+                    console.log('Abwesend clicked');
                 }
             }, {
                 text: 'Remove from group',

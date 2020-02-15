@@ -66,9 +66,9 @@ export class HttpService {
 
   addChildrenToCourse(studentId: number, courseId: number) {
 
-    const params = new HttpParams();
-    params.set("studentId", studentId.toLocaleString());
-    params.set("courseId", courseId.toLocaleString());
+    const params = new HttpParams()
+      .set("studentId", studentId.toLocaleString())
+      .set("courseId", courseId.toLocaleString());
 
     return this.http.post(environment.api + '/app/addChildrenToCourse',null,{params})
 
@@ -81,26 +81,27 @@ export class HttpService {
 
   getGroupParticipations(groupId: number) {
 
-    const params = new HttpParams();
-    params.set("groupId", groupId.toLocaleString());
+    const params = new HttpParams()
+      .set("groupId", groupId.toLocaleString());
+
     return this.http.get(environment.api + '/app/getGroupParticipations', {params});
   }
 
   getCourseParticipants(proficiency: string, courseId: number) {
 
-    const params = new HttpParams();
-    params.set("proficiency", proficiency);
-    params.set("courseId", courseId.toLocaleString())
+    const params = new HttpParams()
+        .set("proficiency", proficiency)
+        .set("courseId", courseId.toLocaleString());
+
     return this.http.get(environment.api + '/app/getCourseParticipants', {params})
   }
 
   getGroup(courseId: number) {
-    const params = new HttpParams();
-    params.set("courseId", courseId.toLocaleString());
+    let params = new HttpParams().set("courseId", courseId.toString());
     return this.http.get(environment.api + '/app/getGroup', {params});
   }
 
-  getCourse(courseId) {
+  getCourse(courseId: number) {
 
     return this.http.get(environment.api + '/get/getCourse/' + courseId.toLocaleString());
   }
@@ -109,6 +110,14 @@ export class HttpService {
     return this.http.get(environment.api + '/app/getCurrentCourse');
   }
 
+  getChild(studentId: number) {
+    return this.http.get(environment.api + '/app/getChild/' + studentId.toLocaleString())
+  }
+
+  getContactPerson(studentId: number) {
+    let params = new HttpParams().set("studentId", studentId.toLocaleString());
+    return this.http.get(environment.api + '/app/getContactPerson', {params})
+  }
 
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../../../_services/data.service';
 import {ModalController} from '@ionic/angular';
-import {CustomResponse} from '../../../_models/entities';
+import {CourseParticipation, CustomResponse} from '../../../_models/entities';
 import {ToastService} from '../../../_services/toast.service';
 import {HttpService} from '../../../_services/http.service';
 
@@ -12,13 +12,15 @@ import {HttpService} from '../../../_services/http.service';
 })
 export class StudentSelectionComponent implements OnInit {
 
+  courseParticipants: CourseParticipation [] = [];
+
   constructor(private dataService: DataService,
               public modalController: ModalController,
               public toastService: ToastService,
               public httpService: HttpService) { }
 
   ngOnInit() {
-    //this.httpService.getCourseParticipations(this.dataService.group.proficiency).subscribe(res => this.checkResponse(res));
+    this.httpService.getCourseParticipants(this.dataService.group.proficiency, this.dataService.course.id).subscribe(res => this.checkResponse(res));
   }
 
   dismissModal() {
@@ -33,11 +35,12 @@ export class StudentSelectionComponent implements OnInit {
 
     switch (response.typ) {
       case 'hint':
-        this.toastService.presentHintToast(response.message);
+        console.log(response.message);
+        //this.toastService.presentHintToast(response.message);
         break;
       case 'data':
         console.log(response.data);
-        this.dataService.courseParticipants = JSON.parse(JSON.stringify(response.data));
+        this.courseParticipants = JSON.parse(JSON.stringify(response.data));
         break;
     }
   }

@@ -77,6 +77,7 @@ export class Course {
         public from: Date = new Date(),
         public to: Date = new Date(),
         public assigned: Date = new Date(),
+        public place: string = '',
         public instructor: SkiTeacher = new SkiTeacher()
     ) {}
 }

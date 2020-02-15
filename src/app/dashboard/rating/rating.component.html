@@ -14,18 +14,12 @@
 </ion-header>
 
 <ion-content scroll-y="false">
-      <ion-list>
-        <ion-item>
-          <ion-label>Max Mustermann</ion-label>
-          <ion-note slot="end" color="dark">7.8</ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>Maxim Musterfrau</ion-label>
-          <ion-note slot="end" color="dark">nicht bewertet</ion-note>
+      <ion-list *ngFor="let groupParticipation of this.dataService.groupParticipations">
+        <ion-item (click)="showModal()">
+          <ion-label>{{groupParticipation.student.firstName + " " + groupParticipation.student.lastName}}</ion-label>
+          <ion-note slot="end" color="dark">{{groupParticipation.drivingCan}}</ion-note>
         </ion-item>
       </ion-list>
-
-  <ion-button (click)="showModal()"> TEST</ion-button>
 </ion-content>
 
 

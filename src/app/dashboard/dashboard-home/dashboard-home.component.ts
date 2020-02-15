@@ -6,6 +6,7 @@ import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {AuthenticationService} from '../../_services/authentication.service';
 import {CurrentUser, CustomResponse} from '../../_models/entities';
 import {ToastService} from '../../_services/toast.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-dashboard-home',

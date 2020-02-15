@@ -10,6 +10,5 @@ export class DataService {
 
   groupParticipations: GroupParticipation [] = [];
   group: Group = new Group();
-  courseParticipants: CourseParticipation [] = [];
   course: Course = new Course();
 }

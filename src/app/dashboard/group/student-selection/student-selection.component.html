@@ -12,76 +12,8 @@
 <ion-content>
   <ion-card>
         <ion-list>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Max Mustermann</ion-label>
+          <ion-item *ngFor="let courseParticipation of courseParticipants">
+            <ion-label>{{courseParticipation.student.firstName + ' ' + courseParticipation.student.lastName}}</ion-label>
             <ion-checkbox slot="end"></ion-checkbox>
           </ion-item>
         </ion-list>
