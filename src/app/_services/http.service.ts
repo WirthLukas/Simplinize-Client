@@ -60,7 +60,6 @@ export class HttpService {
   }
 
   getSkiTeachers() {
-
     return this.http.get(environment.api + '/app/getSkiTeachers')
   }
 
@@ -74,8 +73,17 @@ export class HttpService {
 
   }
 
-  registerChildren() {
+  addChildrenToGroup(studentId: number, groupId: number) {
 
+    const params = new HttpParams()
+        .set("studentId", studentId.toLocaleString())
+        .set("courseId", groupId.toLocaleString());
+
+    return this.http.post(environment.api + '/app/addChildrenToGroup',null,{params})
+
+  }
+
+  registerChildren() {
     return this.http.post(environment.api + '/app/registerChildren', null);
   }
 
@@ -102,7 +110,6 @@ export class HttpService {
   }
 
   getCourse(courseId: number) {
-
     return this.http.get(environment.api + '/get/getCourse/' + courseId.toLocaleString());
   }
 
@@ -118,6 +125,4 @@ export class HttpService {
     let params = new HttpParams().set("studentId", studentId.toLocaleString());
     return this.http.get(environment.api + '/app/getContactPerson', {params})
   }
-
-
 }

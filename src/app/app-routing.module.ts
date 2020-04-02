@@ -14,6 +14,7 @@ import {StudentSelectionComponent} from './dashboard/group/student-selection/stu
 import {StudentDetailComponent} from './dashboard/group/student-detail/student-detail.component';
 import {AuthGuard} from './_guards/auth.guard';
 import {Enums} from './_models/enums';
+import {AdminSettingsComponent} from './dashboard/admin/admin-settings/admin-settings.component';
 
 
 const routes: Routes = [
@@ -35,7 +36,7 @@ const routes: Routes = [
           }, children: [
               { path: '', redirectTo: 'overview', pathMatch: 'full'},
               { path: 'overview', component: OverviewComponent},
-              // { path: 'settings', component: AdminSettingsComponent},
+              { path: 'settings', component: AdminSettingsComponent},
           ]}
       ]},
 ];

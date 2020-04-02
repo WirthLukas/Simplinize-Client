@@ -9,6 +9,16 @@
   </ion-toolbar>
 </ion-header>
 
-<p>
-  {{contactPersons.length}}
-</p>
+<ion-content scroll-y="false">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Ansprechpersonen</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list *ngFor="let contactPerson of this.contactPersons">
+        <ion-label>{{contactPerson.firstName + " " + contactPerson.lastName + " " + contactPerson.phone}}</ion-label>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

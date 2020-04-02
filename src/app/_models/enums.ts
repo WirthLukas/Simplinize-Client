@@ -11,7 +11,7 @@ export enum Enums {
 export enum Proficiency {
     LILA = 'LILA',
     ORANGE = 'ORANGE',
-    GRUEN = 'GRÜN',
+    GRUEN = 'GRUEN',
     GELB = 'GELB',
     DEFAULT = 'DEFAULT'
 

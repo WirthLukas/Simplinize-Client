@@ -25,7 +25,9 @@ export class DashboardHomeComponent implements OnInit {
 
     ngOnInit() {
         this.httpService.getCurrentCourse().subscribe(res =>  {
+            console.log(res);
             this.checkResponseCourse(res);
+
             this.httpService.getGroup(this.dataService.course.id).subscribe(res => this.checkResponseGroup(res));
         });
     }

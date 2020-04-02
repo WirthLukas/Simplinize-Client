@@ -26,6 +26,7 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {StudentSelectionComponent} from './dashboard/group/student-selection/student-selection.component';
 import {StudentDetailComponent} from './dashboard/group/student-detail/student-detail.component';
 import {RatingDetailComponent} from './dashboard/rating/rating-detail/rating-detail.component';
+import {AdminSettingsComponent} from './dashboard/admin/admin-settings/admin-settings.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import {RatingDetailComponent} from './dashboard/rating/rating-detail/rating-det
         RatingComponent,
         RatingDetailComponent,
         DashboardHomeComponent,
-        OverviewComponent
+        OverviewComponent,
+        AdminSettingsComponent
     ],
     entryComponents: [StudentSelectionComponent, RatingDetailComponent],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, FormsModule, ReactiveFormsModule],

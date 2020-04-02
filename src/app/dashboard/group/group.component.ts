@@ -35,7 +35,7 @@ export class GroupComponent implements OnInit {
         switch (response.typ) {
             case 'hint':
                 console.log(response.message)
-                //this.toastService.presentHintToast(response.message);
+                this.toastService.presentHintToast(response.message);
                 break;
             case 'data':
                 console.log(response.data);
