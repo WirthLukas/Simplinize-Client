@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {StudentSelectionComponent} from '../../group/student-selection/student-selection.component';
 import {DataService} from '../../../_services/data.service';
 import {ToastService} from '../../../_services/toast.service';
@@ -13,6 +13,8 @@ import {HttpService} from '../../../_services/http.service';
 })
 export class RatingDetailComponent implements OnInit {
 
+  @Input('student') student;
+
   constructor(private dataService: DataService,
               private toastService: ToastService,
               private modalController: ModalController,
@@ -20,7 +22,9 @@ export class RatingDetailComponent implements OnInit {
               private router: Router,
               private http: HttpService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.student.firstName);
+  }
 
   dismissModal() {
     this.modalController.dismiss();

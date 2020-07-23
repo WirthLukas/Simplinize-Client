@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {HttpService} from '../../../_services/http.service';
-import {ContactPerson, CustomResponse, GroupParticipation, Student} from '../../../_models/entities';
-import {ToastService} from '../../../_services/toast.service';
+ import { Component, OnInit } from '@angular/core';
+ import {ActivatedRoute, Router} from '@angular/router';
+ import {HttpService} from '../../../_services/http.service';
+ import {ContactPerson, CustomResponse, GroupParticipation, Student} from '../../../_models/entities';
+ import {ToastService} from '../../../_services/toast.service';
 
-@Component({
+ @Component({
   selector: 'app-student-detail',
   templateUrl: './student-detail.component.html',
   styleUrls: ['./student-detail.component.scss'],
@@ -38,8 +38,8 @@ export class StudentDetailComponent implements OnInit {
 
     switch (response.typ) {
       case 'hint':
-        console.log(response.message)
-        //this.toastService.presentHintToast(response.message);
+        console.log(response.message);
+        // this.toastService.presentHintToast(response.message);
         break;
       case 'data':
         console.log(response.data);

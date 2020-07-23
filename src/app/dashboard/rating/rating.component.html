@@ -15,7 +15,7 @@
 
 <ion-content scroll-y="false">
       <ion-list *ngFor="let groupParticipation of this.dataService.groupParticipations">
-        <ion-item (click)="showModal()">
+        <ion-item (click)="showModal(groupParticipation.student)">
           <ion-label>{{groupParticipation.student.firstName + " " + groupParticipation.student.lastName}}</ion-label>
           <ion-note slot="end" color="dark">{{groupParticipation.drivingCan}}</ion-note>
         </ion-item>

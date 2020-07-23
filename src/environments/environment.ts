@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // api: 'http://localhost:8080/rest/simplinize'
-  api: 'https://api.scharez.at/simplinize'
+  api: 'http://localhost:8080/rest/simplinize'
+  // api: 'https://api.scharez.at/simplinize'
 };
 
 
